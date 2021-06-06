@@ -1,2 +1,2 @@
 # Browser_Game
-Phone Joystick, Node.js Server
+Phone Browser Users and PC GameMaster, Node.js Server

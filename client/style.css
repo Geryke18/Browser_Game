@@ -1,0 +1,70 @@
+#role{opacity:0;}
+.visible{opacity:1 !important;}
+
+body 	{text-align: center; font-size:large; font-family: "Arial black";
+		background-image: linear-gradient(to right, red, black, black, black, blue); color:white;}
+a 		{margin: 5px; padding: 10px; transition: all 0.6s !important;
+		box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important; color:white; text-decoration: none;}
+a:hover {text-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red, 0 0 35px red !important;
+		transition: all 0.6s !important;}
+div		{padding: 10px; margin: 25px; margin-top: 0px; width:initial;}
+div:hover {transition: all 0.6s !important; box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important;}
+h2		{text-align: center; padding-top: 0px; margin-top: 0px;}
+#players2 {}
+#help {box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important;}
+input[type=submit] {
+  font-family: 'Arial black';
+  background-color: black;
+  padding: 10px;
+  transition: all 0.6s !important; box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important;
+  color:white;
+  text-decoration: none;
+  cursor: pointer;
+  font-size:large;
+  border: none;
+}
+select{font-size: 150%;}
+
+.mobile{font-size: 250%;}
+
+
+
+#regDiv{text-align: center;} /* position: fixed; top: 800px; left: 0px; width: 100%; margin: 0px; padding: 0px; */
+label {font-size: 320%;}
+input[type=text] {font-size: 230%; width: 390px;}
+#regButton{font-size: 230%}
+
+.pointer{cursor: pointer;}
+
+
+.glow1 {
+  -webkit-animation: glow1 1s ease-in-out infinite alternate;
+  -moz-animation: glow1 1s ease-in-out infinite alternate;
+  animation: glow1 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow1 {
+  from {
+    text-shadow: 0 0 3px rgb(218, 221, 255), 0 0 10px #0066ff, 0 0 15px blue, 0 0 22px blue;
+  }
+  
+  to {
+    text-shadow: 0 0 8px rgb(218, 221, 255), 0 0 20px #0066ff, 0 0 30px blue, 0 0 40px blue;
+  }
+}
+
+.glow2 {
+  -webkit-animation: glow1 1s ease-in-out infinite alternate;
+  -moz-animation: glow1 1s ease-in-out infinite alternate;
+  animation: glow1 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow2 {
+  from {
+    text-shadow: 0 0 3px white, 0 0 10px #ff5454, 0 0 15px red, 0 0 20px red;
+  }
+  
+  to {
+    text-shadow: 0 0 8px white, 0 0 20px #ff5454, 0 0 30px red, 0 0 40px red;
+  }
+}
