@@ -7,11 +7,14 @@ a 		{margin: 5px; padding: 10px; transition: all 0.6s !important;
 		box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important; color:white; text-decoration: none;}
 a:hover {text-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red, 0 0 35px red !important;
 		transition: all 0.6s !important;}
-div		{padding: 10px; margin: 25px; margin-top: 0px; width:initial;}
-div:hover {transition: all 0.6s !important; box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important;}
+div		{padding: 10px; margin: 10px; margin-top: 0px; width:initial;}
+/* div:hover {transition: all 0.6s !important; box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important;} */
 h2		{text-align: center; padding-top: 0px; margin-top: 0px;}
+#container1 {position: absolute; left: 22%; width: 45%;}
+#buttons {float: left;}
+#players {float: right; padding-top: 0px;}
 #players2 {}
-#help {box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important;}
+#help {position: static; left: 5%; width: 90%; box-shadow: 0 0 7px white, 0 0 20px red, 0 0 30px red!important;}
 input[type=submit] {
   font-family: 'Arial black';
   background-color: black;

@@ -48,9 +48,7 @@ function shouldISelect(){
                     }
                 }
             }else{
-                selected.onclick = async function sryURDead() {
-                    alert("Sajnos halott vagy");
-                }
+                players.innerHTML = "Sajnos halott vagy";
             }
         };
     
@@ -73,7 +71,7 @@ function shouldISelect(){
                 }
             }else{
                 players.innerHTML = "Sajnos halott vagy";
-                setTimeout(nextTurn, 2000);
+                setTimeout(nextTurn, 9000);
                 async function nextTurn() {
                     let response = await fetch('http://' + location.host + '/askRole', {
                         method: 'POST',
@@ -84,6 +82,8 @@ function shouldISelect(){
                 }
             }
         };
+    }else {
+        players.innerHTML = "";
     };
 }
 
@@ -94,7 +94,7 @@ showRoleBtn.onclick = async function showRole() {
     roleText.textContent = myRole;
     amIAlive = myDatas.jsonData.isAlive;
     roleText.classList.add("visible");
-    setTimeout(hide, 2000);
+    setTimeout(hide, 1000);
 };
 
 let players = document.getElementById("players2");
@@ -102,10 +102,11 @@ let players = document.getElementById("players2");
 async function checkTurn (){
 	let response = await fetch('http://' + location.host + '/turncheck');
     let turn = await response.json();
+    getRole();
     selectlist = 'Válassz az élő játékosok közül!<br><select name="toKill" id="toKill">';
     for (var i=0 ; i < turn.usersAlive.length ; i++){
         if (myName != turn.usersAlive[i] && myRole != "Orvos"){
-            selectlist = selectlist + '<option value=' + turn.usersAlive[i] + '>' + turn.usersAlive[i] + '</option>';
+            selectlist = selectlist + '<option>' + turn.usersAlive[i] + '</option>';
         }
     }
     selectlist = selectlist + "</select><br><br><a class='pointer' id='selected'>Kiválasztom</a><br>";

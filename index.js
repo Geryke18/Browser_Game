@@ -17,7 +17,7 @@ class User {
     this.name = name;
     this.ipAddress = ipAddress;
     this.isAlive= true;
-    this.role = '¯\\_(ツ)_/¯';
+    this.role = 'Polgár';  // ezt majd erre visszairni: '¯\\_(ツ)_/¯'
     this.targetUser = "";
   }
 };
@@ -41,32 +41,32 @@ let whoToSave;
 
 let htmlStart = '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><title>Gyilkosos</title><link href="style.css" rel="stylesheet"><script src="/socket.io/socket.io.js"></script><script>var socket = io();</script></head><body><br>';
 let htmlEnd = '</body></html>';
-let registrationHtml = '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><div id="regDiv"><form><label class="glow1" for="player">Új játékos neve:</label><br><input type="text" id="player" name="player"><br><br><input id="regButton" type="submit" value="Regisztrálok"></form></div><br><br>';
-let roleRoll = "<a href='roles'>Szerepek sorsolása</a> ";
+let registrationHtml = '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><div id="regDiv"><form><label class="glow1" for="player">Új játékos neve:</label><br><input type="text" id="player" name="player"><br><br><input id="regButton" type="submit" value="Regisztrálok"></form></div><br><br>';
+let roleRoll = "<div id='container1'><div id='buttons'><a href='roles'>Szerepek sorsolása</a> ";
 let hanging = "";
-let reset = "<br><br><br><br><a href='reset'>Újrakezdés</a>";
+let reset = "<br><br><br><br><a href='reset'>Újrakezdés</a></div>";
 let helpText = "<div id='help'>A telefonotok böngészőjének kereső mezőjébe írjátok be hogy: <b>" + serverIP + ":3000</b><br>A szervergép neve: " + serverHostName + "<br><br><a class='pointer' id='hideButton'>Elrejt</a></div>";
 let sleepEverybodyWakeUpKiller = "<audio id='sewk'><source src='sound1.mp3' /></audio>";
 let sleepKillerWakeUpPolice = "<audio id='skwp'><source src='sound2.mp3' /></audio>";
 let sleepPoliceWakeUpEverybody = "<audio id='spwe'><source src='sound3.mp3' /></audio>";
 
 // ezt a for-t is majd torolni kell
-// for (var i=1 ; i < 4 ; i++){
-//   users.push(new User("user"+i, "xyz123"))
-//   userNames.push("user"+i);
-// }
+for (var i=1 ; i < 2 ; i++){
+  users.push(new User("user"+i, "xyz123"))
+  userNames.push("user"+i);
+}
 
-// for (var i=0 ; i < users.length ; i++){
-//   if (users[i].isAlive){
-//     usersAlive.push(users[i].name);
-//   }
-// }
+for (var i=0 ; i < users.length ; i++){
+  if (users[i].isAlive){
+    usersAlive.push(users[i].name);
+  }
+}
 
 function checkCityWon(){
   let cityWon = false;
 
   if (users.length > 0){
-    if (users[0].role != '¯\\_(ツ)_/¯'){
+    if (users[0].role != 'Polgár'){  // ezt 'Polgár' majd erre visszairni: '¯\\_(ツ)_/¯'
       cityWon = true;
       for (var i=0 ; i < users.length ; i++){
         if (users[i].role == "Gyilkos" && users[i].isAlive == true){
@@ -97,12 +97,13 @@ function checkKillersWon(){
       killersWon = true;
     }
   }
-  console.log(killersWon + ' ha ez igaz akkor nyertek a gyilkosok');
+  // console.log(killersWon + ' ha ez igaz akkor nyertek a gyilkosok');
   return killersWon;
 }
 
 app.get('/', (req, res) => {
   if (whoToSave != whoToKill){
+    console.log("Who to kill: " + whoToKill);
     for (var i=0 ; i < users.length ; i++){
       if (users[i].name == whoToKill){
         users[i].isAlive = false;
@@ -117,12 +118,12 @@ app.get('/', (req, res) => {
     res.write("<h1 class='mobile'>Nyertek a Gyilkosok!</h1>");
     res.write(reset);
   } else {
-    res.write("<h2 class='glow1'>Gyilkosos játék</h2>");
+    res.write("<h2 class='glow1'>Gyilkosos játék</h2><br>");
     res.write(helpText);
-    res.write('<div id="players">Játékosok:');
-    res.write("</div>");
     res.write(roleRoll + hanging);
     res.write(reset);
+    res.write('<div id="players">Játékosok:');
+    res.write("</div></div>");
     res.write(registrationHtml);
     res.write("<script src='home.js'></script>");
   }
@@ -139,7 +140,7 @@ app.post('/reg', (req, res) => {
     var toFrontEnd = "Erről az eszközről már csatlakoztál a játékhoz " + users[userIndex].name + " névvel.";
     res.json({'checkResult': toFrontEnd});
     return res.end();
-  }else if(roleRoll != "<a href='roles'>Szerepek sorsolása</a> "){
+  }else if(roleRoll != "<div id='container1'><div id='buttons'><a href='roles'>Szerepek sorsolása</a> "){
     var toFrontEnd = 'Már megtörtént a sorsolás.\nKérj újrakezdést a játékmestertől!';
     res.json({'checkResult': toFrontEnd});
     return res.end();
@@ -239,19 +240,20 @@ app.get('/hidehelp', (req, res) => {
   helpText = "";
 });
 
-let roleList = ["Gyilkos", "Rendőr", "Polgár", "Polgár", "Gyilkos", "Orvos", "Csonkoló", "Igor", "Bolond"]
+let roleList = ["Gyilkos", "Rendőr", "Gyilkos", "Polgár", "Gyilkos", "Orvos", "Csonkoló", "Igor", "Bolond", "Polgár", "Polgár", "Polgár", "Polgár"] // 2. gyilkost polgárra majd árírni
 let actionRoles = ["Gyilkos", "Rendőr", "Orvos", "Csonkoló"];
 function addRoles (){
-  while (users.length != roleList.length){
-    roleList.pop();
+  let actualRoleList = roleList;
+  while (users.length-1 != actualRoleList.length){  // a "-1"-et kitorolni
+    actualRoleList.pop();
   }
-  console.log(roleList);
-  for (var i=0 ; i < users.length ; i++){ 
-    var randInt = Math.floor(Math.random() * roleList.length);
-    users[i].role = roleList[randInt];
-    roleList[randInt] ="z";
-    roleList.sort();
-    roleList.pop();
+  console.log(actualRoleList);
+  for (var i=1 ; i < users.length ; i++){   // 1-et nullara atirni
+    var randInt = Math.floor(Math.random() * actualRoleList.length);
+    users[i].role = actualRoleList[randInt];
+    actualRoleList[randInt] ="z";
+    actualRoleList.sort();
+    actualRoleList.pop();
   }
 }
 
@@ -265,7 +267,7 @@ app.get('/roles', (req, res) => {
     return res.end();
   }else{
     addRoles();
-    roleRoll = "<a class='pointer' href='/night' id='sleep'>Aludjon a város</a> ";
+    roleRoll = "<div id='container1'><div id='buttons'><a class='pointer' href='/night' id='sleep'>Aludjon a város</a> ";
     res.write(htmlStart);
     res.write("Szerepek kiosztva.<br>Nézzétek meg a játékosotok oldalán!<br>Közeleg az éjszaka...<br><br>");
     res.write("<form class='pointer' action='/night' method='get' id='roleRoll'><input type='submit' value='Aludjon a város!'></form>");
@@ -290,10 +292,9 @@ app.get('/night', (req, res) => {
 });
 
 function doReset (){
-  roleRoll = "<a href='roles'>Szerepek sorsolása</a> ";
+  roleRoll = "<div id='container1'><div id='buttons'><a href='roles'>Szerepek sorsolása</a> ";
   users = [];
   userNames = [];
-  roleList = ["Gyilkos", "Rendőr", "Polgár", "Polgár", "Gyilkos", "Orvos", "Csonkoló", "Igor", "Bolond"];
   userIPs = [];
   whoToKill = "";
   whosTurn = 'starting';
@@ -318,7 +319,7 @@ app.get('/hanging_page', (req, res) => {
   } 
   selectlist = 'Kit akartok felakasztani?<br><select name="toHang" id="toHang">';
   for (var i=0 ; i < usersAlive.length ; i++){
-      selectlist = selectlist + '<option value=' + usersAlive[i] + '>' + usersAlive[i] + '</option>';
+      selectlist = selectlist + '<option>' + usersAlive[i] + '</option>';
   }
   selectlist = selectlist + "</select><br><br><a class='pointer' id='selected'>Kiválasztom</a><br>";
   res.write(htmlStart);
