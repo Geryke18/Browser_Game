@@ -20,7 +20,7 @@ class User {
     this.role = 'Polgár';  // ezt majd erre visszairni: '¯\\_(ツ)_/¯'
     this.targetUser = "";
   }
-};
+}
 
 function whichIP (currentIP){
   for (var i=0 ; i < users.length ; i++){
@@ -56,7 +56,7 @@ for (var i=1 ; i < 2 ; i++){
   userNames.push("user"+i);
 }
 
-for (var i=0 ; i < users.length ; i++){
+for (i=0 ; i < users.length ; i++){
   if (users[i].isAlive){
     usersAlive.push(users[i].name);
   }
@@ -88,7 +88,7 @@ function checkKillersWon(){
   } 
   if (users.length > 0){
     let killersAlive = 0;
-    for (var i=0 ; i < users.length ; i++){
+    for (i=0 ; i < users.length ; i++){
       if (users[i].role == "Gyilkos" && users[i].isAlive == true){
         killersAlive = killersAlive + 1;
       }
@@ -141,11 +141,11 @@ app.post('/reg', (req, res) => {
     res.json({'checkResult': toFrontEnd});
     return res.end();
   }else if(roleRoll != "<div id='container1'><div id='buttons'><a href='roles'>Szerepek sorsolása</a> "){
-    var toFrontEnd = 'Már megtörtént a sorsolás.\nKérj újrakezdést a játékmestertől!';
+    toFrontEnd = 'Már megtörtént a sorsolás.\nKérj újrakezdést a játékmestertől!';
     res.json({'checkResult': toFrontEnd});
     return res.end();
   }else if (userNames.includes(req.body)){
-    var toFrontEnd = "A név már foglalt.\nPróbáld másik névvel!";
+    toFrontEnd = "A név már foglalt.\nPróbáld másik névvel!";
     res.json({'checkResult': toFrontEnd});
     return res.end();
   }else{
@@ -153,7 +153,7 @@ app.post('/reg', (req, res) => {
     userNames.push(req.body);
     usersAlive.push(req.body);
     userIPs.push(req.ip);
-    var toFrontEnd = true;
+    toFrontEnd = true;
     res.json({'checkResult': toFrontEnd});
     return res.end();
   }
@@ -200,7 +200,7 @@ app.post('/askRole', (req, res) => {
   for (var i=0 ; i < users.length ; i++){
     if (users[i].name == req.body){
       if(users[i].role == "Gyilkos"){
-        toFrontEnd = true;
+        var toFrontEnd = true;
       }else{
         toFrontEnd = false;
       }
@@ -214,7 +214,7 @@ app.post('/askRole', (req, res) => {
 app.post('/kill', (req, res) => {
   whoToKill = req.body
 //  if ("Mind2 gyilkos ugyanazt választotta"){
-  toFrontEnd = true;
+  var toFrontEnd = true;
 //}
   res.json({'checkResult': toFrontEnd});
   whosTurn = actionRoles[1];
@@ -236,7 +236,7 @@ app.get('/userscheck', (req, res) => {
   return res.end();
 });
 
-app.get('/hidehelp', (req, res) => {
+app.get('/hidehelp', () => {
   helpText = "";
 });
 
@@ -299,7 +299,7 @@ function doReset (){
   whoToKill = "";
   whosTurn = 'starting';
   hanging = "";
-};
+}
 
 app.get('/reset', (req, res) => {
   doReset();
@@ -317,8 +317,8 @@ app.get('/hanging_page', (req, res) => {
       usersAlive.push(users[i].name);
     }
   } 
-  selectlist = 'Kit akartok felakasztani?<br><select name="toHang" id="toHang">';
-  for (var i=0 ; i < usersAlive.length ; i++){
+  let selectlist = 'Kit akartok felakasztani?<br><select name="toHang" id="toHang">';
+  for (i=0 ; i < usersAlive.length ; i++){
       selectlist = selectlist + '<option>' + usersAlive[i] + '</option>';
   }
   selectlist = selectlist + "</select><br><br><a class='pointer' id='selected'>Kiválasztom</a><br>";
@@ -329,7 +329,7 @@ app.get('/hanging_page', (req, res) => {
   return res.end();
 });
 
-io.on('connection', (socket) => {
+io.on('connection', () => {
   console.log('a user connected');
 });
 
